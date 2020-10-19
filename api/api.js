@@ -1,11 +1,16 @@
 const apiRouter = require('express').Router()
-const example1Router = require('./example1/example1Router')
+const router = require('./example1/example1Router');
+const cron = require('node-cron')
+const midware = require('../cron/middleware')
+const axios = require('axios')
+const example1Model = require('../api/example1/example1Model')
+const db = require('../data/dbConfig')
+
+apiRouter.use('/example1', router)
 
 
-apiRouter.use('/example1', example1Router)
-
-apiRouter.get('/', (req, res) => {
-    res.status(200).json({error:false, message: "welcome to example1"})
-})
-
+// cron.schedule(('*/15 * * * * *'), function(){
+//     midware.wipeDB()
+//     midware.populateDB()
+// })
 module.exports = apiRouter
